@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Main Content Container -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingTop="40dp">
+
+        <LinearLayout
+            style="@style/background"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_marginBottom="56dp">
+
+            <!-- Title -->
+
+            <!-- Day Navigation Controls -->
+            <TextView
+                android:id="@+id/today_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="מערכת היום"
+                android:textColor="@color/text"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <!-- Previous Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_previous"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="100dp"
+                    android:textSize="30sp"
+                    android:layout_width="100dp"
+                    android:layout_height="55dp"
+                    app:iconSize="24dp"
+                    app:iconGravity="textEnd"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:icon="@drawable/round_arrow_back_24"
+                    android:text="" />
+
+                <!-- Day Label -->
+                <TextView
+                    android:id="@+id/day_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today"
+                    android:textSize="20sp"
+                    android:textColor="@color/text"
+                    android:padding="16dp"/>
+
+                <!-- Next Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_next"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="100dp"
+                    android:textSize="30sp"
+                    android:layout_width="100dp"
+                    android:layout_height="55dp"
+                    app:iconSize="24dp"
+                    app:iconGravity="textEnd"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:icon="@drawable/round_arrow_forward_24"
+                    android:text=""/>
+            </LinearLayout>
+
+            <!-- RecyclerView for schedule items -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/schedule_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="480dp"
+                android:layout_weight="1"
+                app:layoutManager="LinearLayoutManager" />
+        </LinearLayout>
+    </ScrollView>
+    <!--     Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconSize="30dp"
+        app:menu="@menu/bottom_nav_menu"
+        app:backgroundTint="@color/backgroundAccent"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

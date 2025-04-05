@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="background">#F5F5F5</color>
+    <color name="backgroundAccent">#303030</color>
+
+    <color name="text">#000000</color>
+    <color name="textAccent">#29479D</color>
+    <color name="textContrast">#FFFFFF</color>
+
+
+    <color name="purple_200">#86FAFC</color>
+    <color name="purple_500">#0010EE</color>
+    <color name="purple_700">#001BB3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="main">#000000</color>
+
+
+    <color name="waveColor1">#2196F3</color>
+    <color name="waveColor2">#1E88E5</color>
+    <color name="waveColor3">#1976D2</color>
+    <color name="loginButtonColor">#F44336</color>
+    <color name="textPrimary">#000000</color>
+    <color name="textSecondary">#616161</color>
+
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#36C8F4</color>
+    <color name="colorAccentDark">#2FA2D3</color>
+
+    <!-- Autofill highlight override (light mode) -->
+    <color name="my_autofill_highlight">#FFF9C4</color> <!-- Light yellow -->
+
+
+</resources>

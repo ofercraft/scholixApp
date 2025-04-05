@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_username"
+        android:icon="@drawable/round_person_24"
+        android:iconTint="@color/text"
+        android:title="Username" />
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/round_settings_24"
+        android:iconTint="@color/text"
+        android:title="Settings" />
+    <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/round_logout_24"
+        android:iconTint="@color/text"
+        android:title="Logout" />
+</menu>

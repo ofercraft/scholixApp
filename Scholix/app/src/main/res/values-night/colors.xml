@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="background">#222531</color>
+    <color name="backgroundAccent">#323645</color>
+    <color name="text">#FFFFFF</color>
+    <color name="textAccent">#95dbfa</color>
+    <color name="textContrast">#000000</color>
+
+
+    <color name="colorPrimary">#68A6ED</color>
+    <color name="colorPrimaryDark">#002171</color>
+    <color name="colorAccent">#2196F3</color>
+    <color name="colorAccentDark">#006E7F</color>
+    <color name="main">#FFFFFFFF</color>
+
+    <!-- Dark mode autofill highlight -->
+    <color name="my_autofill_highlight">#FFCC80</color> <!-- Light orange -->
+
+</resources>

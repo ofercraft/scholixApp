@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Scholix</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+
+
+    <string name="username">שם משתמש</string>
+    <string name="password">סיסמה</string>
+    <string name="login">התחברות</string>
+    <string name="grades">ציונים</string>
+    <string name="schedule">מערכת שעות</string>
+
+    <string name="nav_home">בית</string>
+    <string name="nav_schedule">מערכת שעות</string>
+    <string name="nav_grades">ציונים</string>
+
+
+
+    <string name="webtop">וובטופ</string>
+    <string name="barilan">בר אילן</string>
+
+
+</resources>

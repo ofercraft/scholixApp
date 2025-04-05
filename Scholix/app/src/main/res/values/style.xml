@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+         Base application theme.
+         Inherits from MaterialComponents with Day/Night support.
+         This theme is applied to the app in AndroidManifest.xml:
+
+         <application
+             android:name=".MyApplication"
+             android:theme="@style/AppTheme" ... >
+    -->
+<!--    <style name="Menu.MenuTextStyle"-->
+<!--        parent="android:style/TextAppearance.Holo.Widget.ActionBar.Menu">-->
+<!--        <item name="android:actionBarTabTextStyle">@style/RoundedPopupMenu</item>-->
+
+<!--    </style>-->
+    <style name="CustomPopupMenu" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:popupBackground">@drawable/rounded_menu</item>
+    </style>
+
+
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="listMenuViewStyle">@style/RoundedPopupMenu</item>
+
+        <!-- Primary brand color (Light mode). Define in colors.xml -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <!-- Secondary brand color (Light mode). Define in colors.xml -->
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorSecondaryVariant">@color/colorAccentDark</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+        <item name="background">@android:color/white</item>
+        <item name="android:autofilledHighlight">@drawable/autofill_highlight</item>
+        <!-- Control highlight color used for ripple/autofill highlights.
+             This is where you override the default yellow autofill tint. -->
+        <item name="android:colorControlHighlight">@color/my_autofill_highlight</item>
+
+        <!-- If you want to enforce black text in EditTexts globally, you can override:
+             (Be aware this might conflict with dark mode if backgrounds are dark)
+        -->
+        <!--
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textColorHint">@color/textSecondary</item>
+        -->
+
+        <!-- Example shape styling (optional) -->
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MediumComponent</item>
+    </style>
+    <style name="background">
+        <item name="android:background">@color/background</item>
+    </style>
+    <style name="backgroundAccent">
+        <item name="android:background">@color/backgroundAccent</item>
+    </style>
+    <style name="RoundedDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="shapeAppearanceOverlay">@style/RoundedDialogShape</item>
+        <item name="android:background">@color/backgroundAccent</item>
+        <item name="cornerSize">24dp</item> <!-- Control radius here -->
+
+    </style>
+
+    <style name="RoundedDialogShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="android:background">@color/backgroundAccent</item>
+
+        <item name="cornerSize">24dp</item> <!-- Control radius here -->
+    </style>
+
+    <style name="RoundedPopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/rounded_menu</item>
+    </style>
+    <!--    &lt;!&ndash; Example shape appearance style, used above &ndash;&gt;-->
+<!--    <style name="ShapeAppearance.MediumComponent" parent="">-->
+<!--        <item name="cornerFamily">rounded</item>-->
+<!--        <item name="cornerSize">16dp</item>-->
+<!--    </style>-->
+<!--    &lt;!&ndash; Define a style for the rounded button &ndash;&gt;-->
+<!--    <style name="RoundedButton" parent="Widget.AppCompat.Button">-->
+<!--        &lt;!&ndash; Apply ShapeAppearance for rounded corners &ndash;&gt;-->
+<!--        <item name="shapeAppearance">@style/RoundedButtonShape</item>-->
+<!--        <item name="android:textColor">#FFFFFF</item>-->
+<!--        <item name="android:textSize">16sp</item>-->
+<!--        <item name="android:paddingStart">16dp</item>-->
+<!--        <item name="android:paddingTop">12dp</item>-->
+<!--        <item name="android:paddingEnd">16dp</item>-->
+<!--        <item name="android:paddingBottom">12dp</item>-->
+<!--    </style>-->
+
+<!--    &lt;!&ndash; Define the ShapeAppearance for the rounded corners &ndash;&gt;-->
+<!--    <style name="RoundedButtonShape">-->
+<!--        <item name="cornerFamily">rounded</item>-->
+<!--        <item name="cornerSize">16dp</item>-->
+<!--    </style>-->
+</resources>

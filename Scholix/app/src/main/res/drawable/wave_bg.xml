@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="250dp"
+    android:viewportWidth="360"
+    android:viewportHeight="250">
+
+    <!-- Wave 1 (bottom wave) -->
+    <path
+        android:fillColor="@color/waveColor1"
+        android:pathData="M0,80 C100,0 260,160 360,80 L360,0 L0,0 Z"/>
+
+    <!-- Wave 2 (middle wave) -->
+    <path
+        android:fillColor="@color/waveColor2"
+        android:pathData="M0,120 C100,40 260,200 360,120 L360,0 L0,0 Z"/>
+
+    <!-- Wave 3 (top wave) -->
+    <path
+        android:fillColor="@color/waveColor3"
+        android:pathData="M0,160 C100,80 260,240 360,160 L360,0 L0,0 Z"/>
+</vector>
