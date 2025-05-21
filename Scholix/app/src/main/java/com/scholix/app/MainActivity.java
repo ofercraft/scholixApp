@@ -1,8 +1,16 @@
 package com.scholix.app;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.Settings;
 import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +34,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+//        this.startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(
+                        new String[]{android.Manifest.permission.POST_NOTIFICATIONS},
+                        1001  // requestCode
+                );
+            }
+        }
+
+        // Schedule grade fetch every 15 min
+        PeriodicWorkRequest request = new PeriodicWorkRequest
+                .Builder(GradeSyncWorker.class, 15, java.util.concurrent.TimeUnit.MINUTES)
+                .build();
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "grade_sync", ExistingPeriodicWorkPolicy.REPLACE, request);
 
         // Bind UI elements
         usernameEditText = findViewById(R.id.username);

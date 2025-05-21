@@ -19,6 +19,15 @@ public class BarilanGradeFetcher {
     private String token;
     private ExecutorService executor;
     private int year;
+    public static boolean isNumeric(String str) {
+        if (str == null || str.isEmpty()) return false;
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     public BarilanGradeFetcher(Context context, String username, String password, int year, GradesCallback callback) {
         this.year = year; // Store year for potential use
@@ -89,7 +98,12 @@ public class BarilanGradeFetcher {
                         .getJSONArray("clientData")
                         .getJSONObject(year-1)
                         .getJSONArray("__body");
-
+                System.out.println("d");
+                System.out.println("d");
+                System.out.println("d");
+                System.out.println("d");
+                System.out.println("d");
+                System.out.println(gradesArray.toString());
                 for (int i = 0; i < gradesArray.length(); i++) {
                     JSONObject gradeObject = gradesArray.getJSONObject(i);
                     String subject = gradeObject.optString("krs_shm", "לא ידוע");
@@ -101,7 +115,7 @@ public class BarilanGradeFetcher {
                         finalGrade = gradeObject.getString("moed_2_zion");
                     else if (gradeObject.has("moed_1_zion") && !gradeObject.isNull("moed_1_zion"))
                         finalGrade = gradeObject.getString("moed_1_zion");
-                    else if (gradeObject.has("bhnzin") && !gradeObject.isNull("bhnzin"))
+                    else if (gradeObject.has("bhnzin") && !gradeObject.isNull("bhnzin") && isNumeric(gradeObject.getString("bhnzin")))
                         finalGrade = gradeObject.getString("bhnzin");
 
                     if (!finalGrade.equals("N/A"))

@@ -12,7 +12,7 @@
       android:pivotX="512"
       android:pivotY="1100">
     <path
-        android:fillColor="@color/main"
+        android:fillColor="@color/text"
         android:pathData="M438.971741,98.857941
 	C458.891266,89.596230 479.217834,82.352325 499.283295,74.470261
 	C503.868744,72.669014 508.624237,71.231041 513.396606,69.992439

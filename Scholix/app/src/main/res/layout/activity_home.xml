@@ -4,88 +4,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!-- Main Content Container -->
-
-    <!-- Account Button at Top Right -->
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/main_content_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        android:layout_marginBottom="56dp"
-        android:paddingTop="56dp"> <!-- Leaves space for bottom nav -->
+        android:orientation="vertical"
+        android:paddingTop="56dp"
+        android:paddingHorizontal="20dp">
+        <!-- Header Section -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="40dp">
+            android:paddingBottom="20dp">
 
-            <!-- Centered title -->
+            <!-- Centered Title -->
             <TextView
                 android:id="@+id/home_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="בוקר טוב"
                 android:gravity="center"
+                android:text="בוקר טוב"
                 android:textColor="@color/text"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <!-- Person icon on the right -->
+            <!-- Account Button on the Right -->
             <ImageButton
                 android:id="@+id/account_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/round_person_50"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Account"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginEnd="16dp" />
-
-
+                android:scaleType="fitCenter"
+                android:src="@drawable/round_person_50" />
         </FrameLayout>
 
-        <!-- Day Navigation Controls -->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_marginBottom="16dp">-->
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider" />
 
-<!--            <Button-->
-<!--                android:id="@+id/btn_previous"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="←"-->
-<!--                android:textAppearance="@style/TextAppearance.AppCompat.Large" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/day_label"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Today"-->
-<!--                android:textSize="18sp"-->
-<!--                android:textColor="#333333"-->
-<!--                android:padding="16dp"/>-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_next"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="→"-->
-<!--                android:textAppearance="@style/TextAppearance.AppCompat.Large" />-->
-<!--        </LinearLayout>-->
+        <!-- Schedule Title -->
         <TextView
             android:id="@+id/schedule_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="מערכת שעות"
             android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="היום"
             android:textColor="@color/text"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:paddingBottom="10dp"/>
+            android:textStyle="bold" />
 
         <!-- RecyclerView for schedule items -->
         <androidx.recyclerview.widget.RecyclerView
@@ -93,63 +67,27 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:paddingBottom="20dp"
+            android:clipToPadding="false"
             app:layoutManager="LinearLayoutManager" />
     </LinearLayout>
-    <!--     Bottom Navigation View -->
+
+    <!-- Bottom Navigation View -->
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1b2127"
         android:layout_gravity="bottom"
-        app:labelVisibilityMode="unlabeled"
-        app:itemIconSize="30dp"
         app:menu="@menu/bottom_nav_menu"
-        app:backgroundTint="@color/backgroundAccent"/>
-<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--        xmlns:tools="http://schemas.android.com/tools"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="@color/white"-->
-<!--        tools:context=".MainActivity">-->
-
-
-<!--        <FrameLayout-->
-<!--            android:id="@+id/frame_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-
-<!--        <com.google.android.material.bottomappbar.BottomAppBar-->
-<!--            android:id="@+id/bottomAppBar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            android:background="@color/white"-->
-<!--            app:fabCradleMargin="10dp"-->
-<!--            app:fabCradleRoundedCornerRadius="50dp">-->
-
-<!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--                android:id="@+id/bottom_navigation"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginEnd="20dp"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                app:labelVisibilityMode="labeled"-->
-<!--                app:menu="@menu/bottom_nav_menu" />-->
-
-<!--        </com.google.android.material.bottomappbar.BottomAppBar>-->
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:backgroundTint="@color/textContrast"-->
-<!--            android:src="@drawable/round_home_24"-->
-<!--            app:layout_anchor="@id/bottomAppBar"-->
-<!--            app:maxImageSize="40dp"-->
-<!--            android:id="@+id/fab"-->
-<!--            app:tint="@color/text" />-->
-
-<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+        app:itemIconSize="24dp"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:itemRippleColor="@android:color/transparent"
+        app:backgroundTint="@color/backgroundAccent" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

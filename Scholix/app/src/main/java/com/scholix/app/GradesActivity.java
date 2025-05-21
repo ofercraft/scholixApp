@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,8 @@ public class GradesActivity extends BaseActivity {
         gradeList = new ArrayList<>();
         gradeAdapter = new GradeAdapter(gradeList);
         gradesRecyclerView.setAdapter(gradeAdapter);
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        gradesRecyclerView.addItemDecoration(divider);
 
         // Setup account menu
         ImageButton accountButton = findViewById(R.id.account_button);
@@ -99,8 +102,10 @@ public class GradesActivity extends BaseActivity {
 
     // Shows the account popup menu
     private void showAccountPopup(View anchor) {
-        PopupMenu popupMenu = new PopupMenu(GradesActivity.this, anchor);
+
+        PopupMenu popupMenu = new PopupMenu(GradesActivity.this, anchor, 0, 0, R.style.CustomPopupMenu);
         popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+        popupMenu.show();
 
         // Force show icons
         try {

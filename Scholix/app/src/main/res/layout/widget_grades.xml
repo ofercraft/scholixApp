@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F1F1F1"
+    android:padding="8dp"
+    android:id="@+id/widget_item_root"
+
+    >
+
+    <TextView
+        android:id="@+id/widget_title"
+        style="?attr/textAppearanceTitleMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ציונים"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:gravity="end" />
+    <!-- Thin divider -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:importantForAccessibility="no" />
+
+    <!-- List of grades (RemoteViews-compatible) -->
+    <ListView
+        android:id="@+id/widget_grade_list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_list_height"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:paddingBottom="16dp" />
+
+</LinearLayout>

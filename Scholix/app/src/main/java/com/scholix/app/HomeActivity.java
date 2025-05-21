@@ -132,6 +132,7 @@ public class HomeActivity extends BaseActivity {
         // Bottom Navigation Bar Setup
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         setupBottomNavigation(bottomNavigationView);
+
         // Setup account menu on the person icon
         ImageButton accountButton = findViewById(R.id.account_button);
         if (accountButton != null) {
@@ -285,7 +286,7 @@ public class HomeActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(HomeActivity.this, "Error fetching schedule", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(HomeActivity.this, "Error fetching schedule", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -424,7 +425,7 @@ public class HomeActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_username:
-                        Toast.makeText(HomeActivity.this, "Username clicked", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(HomeActivity.this, "Username clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.menu_settings:
                         startActivity(new Intent(HomeActivity.this, SettingsActivity.class));

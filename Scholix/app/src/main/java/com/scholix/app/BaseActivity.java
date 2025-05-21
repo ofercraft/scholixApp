@@ -162,13 +162,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_username:
-                        Toast.makeText(BaseActivity.this, "Username clicked", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(BaseActivity.this, "Username clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.menu_settings:
-                        Toast.makeText(BaseActivity.this, "Settings clicked", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(BaseActivity.this, "Settings clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.menu_logout:
-                        Toast.makeText(BaseActivity.this, "Logout clicked", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(BaseActivity.this, "Logout clicked", Toast.LENGTH_SHORT).show();
                         // Optionally, log out and navigate to LoginActivity
                         // startActivity(new Intent(BaseActivity.this, LoginActivity.class));
                         // finish();

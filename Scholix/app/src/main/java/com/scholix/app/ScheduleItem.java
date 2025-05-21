@@ -33,9 +33,17 @@ public class ScheduleItem {
     }
     // Set exam details
     public void setExam(String examTitle) {
-        System.out.println("DASDas");
         this.isExam = true;
         this.examSubject = examTitle;
+    }
+    public void setSubject(String subject) {
+        this.subject=subject;
+    }
+    public void setTeacher(String teacher) {
+        this.teacher=teacher;
+    }
+    public void removeChanges() {
+        this.changes="";
     }
     @Override
     public String toString() {

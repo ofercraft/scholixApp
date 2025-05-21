@@ -16,10 +16,19 @@
 
 <!--    </style>-->
     <style name="CustomPopupMenu" parent="ThemeOverlay.AppCompat.Light">
+
+        <item name="android:popupElevation">8dp</item> <!-- 👈 Shadow -->
         <item name="android:popupBackground">@drawable/rounded_menu</item>
     </style>
 
 
+    <!-- res/values/styles.xml -->
+    <style name="DayTabText" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <!-- Bold the active tab only; leave others normal -->
+        <item name="android:textStyle">normal</item>
+    </style>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="listMenuViewStyle">@style/RoundedPopupMenu</item>
@@ -54,7 +63,7 @@
         <item name="android:background">@color/background</item>
     </style>
     <style name="backgroundAccent">
-        <item name="android:background">@color/backgroundAccent</item>
+        <item name="android:background">#E8E9E9</item>
     </style>
     <style name="RoundedDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="shapeAppearanceOverlay">@style/RoundedDialogShape</item>
@@ -68,6 +77,9 @@
         <item name="android:background">@color/backgroundAccent</item>
 
         <item name="cornerSize">24dp</item> <!-- Control radius here -->
+    </style>
+    <style name="Widget.Material3.NavigationBar.ActiveIndicator" parent="">
+        <item name="android:background">@drawable/floating_menu_bg</item>
     </style>
 
     <style name="RoundedPopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">

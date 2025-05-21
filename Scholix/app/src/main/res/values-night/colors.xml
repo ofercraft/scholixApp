@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="background">#222531</color>
-    <color name="backgroundAccent">#323645</color>
-    <color name="text">#FFFFFF</color>
-    <color name="textAccent">#95dbfa</color>
-    <color name="textContrast">#000000</color>
+    <color name="background">#111518</color> <!-- Darker gray -->
+<!--    <color name="backgroundAccent">#2A2A2A</color> &lt;!&ndash; Lighter gray &ndash;&gt;-->
+    <color name="backgroundAccent">#1b2127</color> <!-- Lighter gray -->
+    <color name="backgroundAccent2">#211f24</color> <!-- Lighter gray -->
 
+    <color name="text">#EAEAEA</color> <!-- Soft white -->
+    <color name="textAccent">#64B5F6</color> <!-- More blue -->
+    <color name="textContrast">#444444</color> <!-- Lighter gray -->
 
-    <color name="colorPrimary">#68A6ED</color>
-    <color name="colorPrimaryDark">#002171</color>
+    <color name="colorPrimary">#2196F3</color> <!-- Blue -->
+    <color name="colorPrimaryDark">#1976D2</color> <!-- Darker blue -->
     <color name="colorAccent">#2196F3</color>
-    <color name="colorAccentDark">#006E7F</color>
-    <color name="main">#FFFFFFFF</color>
+    <color name="colorAccentDark">#1976D2</color> <!-- Darker blue -->
+    <color name="main">#2A2A2A</color> <!-- Gray color -->
+
+    <color name="divider">#424242</color> <!-- Dark gray color -->
 
     <!-- Dark mode autofill highlight -->
-    <color name="my_autofill_highlight">#FFCC80</color> <!-- Light orange -->
+    <color name="my_autofill_highlight">#BBDEFB</color> <!-- light blue -->
 
 </resources>
