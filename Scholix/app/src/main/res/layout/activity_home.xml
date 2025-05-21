@@ -5,75 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/main_content_linear_layout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
-        android:orientation="vertical"
-        android:paddingTop="56dp"
-        android:paddingHorizontal="20dp">
-        <!-- Header Section -->
-        <FrameLayout
+        android:fillViewport="true"
+        android:paddingTop="40dp">
+
+        <LinearLayout
+            style="@style/background"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp">
+            android:padding="16dp"
+            android:layout_marginBottom="56dp">
 
-            <!-- Centered Title -->
             <TextView
-                android:id="@+id/home_title"
+                android:id="@+id/today_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:text="בוקר טוב"
                 android:textColor="@color/text"
-                android:textSize="30sp"
+                android:textSize="24sp"
+
                 android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="מערכת היום"
+                android:textColor="@color/text"
+                android:textSize="24sp"
 
-            <!-- Account Button on the Right -->
-            <ImageButton
-                android:id="@+id/account_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Account"
-                android:scaleType="fitCenter"
-                android:src="@drawable/round_person_50" />
-        </FrameLayout>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider" />
-
-        <!-- Schedule Title -->
-        <TextView
-            android:id="@+id/schedule_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingVertical="10dp"
-            android:text="היום"
-            android:textColor="@color/text"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <!-- RecyclerView for schedule items -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/schedule_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="20dp"
-            android:clipToPadding="false"
-            app:layoutManager="LinearLayoutManager" />
-    </LinearLayout>
-
-    <!-- Bottom Navigation View -->
-
+                android:textStyle="bold" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/schedule_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="480dp"
+                android:layout_weight="1"
+                app:layoutManager="LinearLayoutManager" />
+        </LinearLayout>
+    </ScrollView>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

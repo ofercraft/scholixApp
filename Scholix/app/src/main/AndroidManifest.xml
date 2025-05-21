@@ -34,7 +34,7 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".ScheduleActivity" />
         <activity android:name=".GradesActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".PlatformsActivity" />
         <activity android:name=".MessagesActivity" />
         <activity android:name=".AccountActivity" />
 

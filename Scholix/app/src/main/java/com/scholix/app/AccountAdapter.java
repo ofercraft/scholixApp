@@ -114,7 +114,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
             RecyclerView recyclerView = (RecyclerView) holder.itemView.getParent();
             recyclerView.post(() -> recyclerView.smoothScrollToPosition(position));
 
-            NestedScrollView scrollView = ((SettingsActivity) holder.itemView.getContext()).findViewById(R.id.nested_scroll);
+            NestedScrollView scrollView = ((PlatformsActivity) holder.itemView.getContext()).findViewById(R.id.nested_scroll);
             scrollView.postDelayed(() -> {
                 scrollView.smoothScrollTo(0, holder.itemView.getTop() + 1000);
             }, 100);
@@ -138,7 +138,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
                         LoginManager loginManager = new LoginManager();
                         LoginManager.LoginResult result = loginManager.validateLogin(updatedUsername, updatedPassword);
 
-                        ((SettingsActivity) holder.itemView.getContext()).runOnUiThread(() -> {
+                        ((PlatformsActivity) holder.itemView.getContext()).runOnUiThread(() -> {
                             if (result.success) {
                                 account.setUsername(updatedUsername);
                                 account.setPassword(updatedPassword);
@@ -153,7 +153,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
                         });
                     } catch (Exception e) {
                         e.printStackTrace();
-                        ((SettingsActivity) holder.itemView.getContext()).runOnUiThread(() ->
+                        ((PlatformsActivity) holder.itemView.getContext()).runOnUiThread(() ->
                                 Toast.makeText(holder.itemView.getContext(), "Login Error: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                         );
                     }

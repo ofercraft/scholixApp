@@ -20,6 +20,10 @@
 
     <string name="webtop">webtop</string>
     <string name="barilan">בר אילן</string>
+    <string name="account">Account</string>
+    <string name="platforms">Platforms</string>
+    <string name="more_information">more information</string>
+    <string name="logout">Logout</string>
 
 
 </resources>

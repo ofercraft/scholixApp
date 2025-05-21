@@ -82,8 +82,8 @@ public class ScheduleActivity extends BaseActivity {
         scheduleRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ScheduleAdapter(this, scheduleItems);
         scheduleRecyclerView.setAdapter(adapter);
-        scheduleRecyclerView.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+/*        scheduleRecyclerView.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));*/
 
         // Day‑Tabs
         dayTabs  = findViewById(R.id.day_tabs);

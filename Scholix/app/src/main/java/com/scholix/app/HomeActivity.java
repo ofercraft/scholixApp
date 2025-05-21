@@ -143,8 +143,9 @@ public class HomeActivity extends BaseActivity {
                 }
             });
         }
-        // Load Today's Schedule (day = -1 means "today")
-        fetchTodaySchedule(-1);
+        int todayIdx = (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) + 6) % 7;
+        if (todayIdx > 5) todayIdx = 0;
+        fetchSchedule(todayIdx);
     }
 
 
@@ -163,222 +164,132 @@ public class HomeActivity extends BaseActivity {
         }
         dayLabel.setText(dayName);
     }
-    private void fetchTodaySchedule(final int day) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Log.d(TAG, "Fetching schedule...");
-                    SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-                    String grade = prefs.getString("class_code", "default_grade");
-                    String institution = prefs.getString("institution", "default_institution");
-                    Log.d(TAG, "Institution: " + institution);
-                    Log.d(TAG, "Grade: " + grade);
+    private void fetchSchedule(final int dayIndex) {
+        new Thread(() -> {
+            try {
+                SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                String grade       = prefs.getString("class_code",      "default_grade");
+                String institution = prefs.getString("institution",     "default_institution");
+                String cookies     = prefs.getString("cookies",         "");
 
-                    JSONObject data = new JSONObject();
-                    data.put("institutionCode", institution);
-                    data.put("selectedValue", grade);
-                    data.put("typeView", 1);
+                JSONObject payload = new JSONObject();
+                payload.put("institutionCode", institution);
+                payload.put("selectedValue",   grade);
+                payload.put("typeView",        1);
 
-                    String savedCookies = prefs.getString("cookies", "");
+                RequestBody body = RequestBody.create(
+                        payload.toString(), MediaType.get("application/json; charset=utf-8"));
+
+                Request request = new Request.Builder()
+                        .url("https://webtopserver.smartschool.co.il/server/api/shotef/ShotefSchedualeData")
+                        .addHeader("Cookie", cookies)
+                        .post(body)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                String respBody   = response.body() != null ? response.body().string() : "";
+
+                JSONArray daysArr = new JSONObject(respBody).getJSONArray("data");
+                if (dayIndex < 0 || dayIndex >= daysArr.length()) return;
+
+                JSONObject dayObj  = daysArr.getJSONObject(dayIndex);
+                JSONArray  hours   = dayObj.getJSONArray("hoursData");
+                Map<Integer,ScheduleItem> hourMap = new HashMap<>();
 
 
-                    RequestBody body = RequestBody.create(
-                            data.toString(), MediaType.get("application/json; charset=utf-8"));
-                    Request request = new Request.Builder()
-                            .url("https://webtopserver.smartschool.co.il/server/api/shotef/ShotefSchedualeData")
-                            .addHeader("Cookie", savedCookies) // include the saved cookie here
-                            .post(body)
-                            .build();
-
-                    Response response = client.newCall(request).execute();
-                    String respBody = response.body() != null ? response.body().string() : "";
-                    Log.d(TAG, "Response: " + respBody);
-
-
-                    JSONObject jsonResponse = new JSONObject(respBody);
-                    JSONArray daysArray = jsonResponse.getJSONArray("data");
-
-                    Calendar calendar = Calendar.getInstance();
-                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)-1; // Sunday=1, Monday=2, ...
-                    int todayIndex = day; // Monday becomes index 0, Sunday becomes index 6
-                    if (day==-1){
-                        todayIndex=dayOfWeek;
-//
+                for (int i = 0; i < hours.length(); i++) {
+                    JSONObject hour = hours.getJSONObject(i);
+                    if (hour.has("scheduale") &&
+                            hour.getJSONArray("scheduale").length() > 0) {
+                        processScheduleArray2(hour, hourMap);   // original helper
                     }
-                    if (todayIndex < 0 || todayIndex >= daysArray.length()) {
-                        Log.w(TAG, "todayIndex out of range: " + todayIndex);
-                        return;
-                    }
-
-                    JSONObject todayData = daysArray.getJSONObject(todayIndex);
-                    JSONArray hoursData = todayData.getJSONArray("hoursData");
-
-                    // Merge "scheduale" and "changes" into a single ScheduleItem per hour.
-                    Map<Integer, ScheduleItem> hourMap = new HashMap<>();
-
-                    for (int i = 0; i < hoursData.length(); i++) {
-                        JSONObject hourObj = hoursData.getJSONObject(i);
-                        if (hourObj.has("scheduale")) {
-
-                            JSONArray schedualeArray = hourObj.getJSONArray("scheduale");
-                            processScheduleArray(schedualeArray, hourMap, false,  false, false);
-                        }
-                        if (hourObj.has("scheduale")) {
-                            JSONArray scheduleArray = hourObj.getJSONArray("scheduale");
-                            for (int k = 0; k < scheduleArray.length(); k++) {
-                                JSONObject scheduleItem = scheduleArray.getJSONObject(k);
-                                if (scheduleItem.has("changes")) {
-                                    JSONArray changesArray = scheduleItem.getJSONArray("changes");
-                                    processScheduleArray(changesArray, hourMap, true,  false, false);
-
-
-                                    for (int j = 0; j < changesArray.length(); j++) {
-                                        JSONObject change = changesArray.getJSONObject(j);
-                                        // For example, get the definition field:
-                                        String definition = change.optString("definition", "");
-                                        String type = change.optString("type", "");
-                                        String group = change.optString("group", "");
-                                        String fillUpType = change.optString("fillUpType", "");
-                                        // Process or log the change information as needed
-                                        Log.d("ChangeSnippet", "Definition: " + definition +
-                                                ", Type: " + type +
-                                                ", Group: " + group +
-                                                ", FillUpType: " + fillUpType);
-
-                                    }
-                                }
-                            }
-                        }
-
-                        if (hourObj.has("events")) {
-                            JSONArray eventsArray = hourObj.getJSONArray("events");
-                            processScheduleArray(eventsArray, hourMap, false, true, false);
-                        }
-
-
-                    }
-
-                    final ArrayList<ScheduleItem> items = new ArrayList<>(hourMap.values());
-                    Collections.sort(items, new Comparator<ScheduleItem>() {
-                        @Override
-                        public int compare(ScheduleItem o1, ScheduleItem o2) {
-                            return Integer.compare(o1.hourNum, o2.hourNum);
-                        }
-                    });
-
-                    for (ScheduleItem item : items) {
-                        Log.d(TAG, "Item: Hour=" + item.hourNum + ", Subject=" + item.subject +
-                                ", Teacher=" + item.teacher + ", ColorClass=" + item.colorClass +
-                                ", Changes=" + item.changes);
-                    }
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            scheduleItems.clear();
-                            scheduleItems.addAll(items);
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
-                } catch (Exception e) {
-                    Log.e(TAG, "Error fetching schedule", e);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-//                            Toast.makeText(HomeActivity.this, "Error fetching schedule", Toast.LENGTH_SHORT).show();
-                        }
-                    });
                 }
+
+                ArrayList<ScheduleItem> items = new ArrayList<>(hourMap.values());
+                Collections.sort(items, Comparator.comparingInt(o -> o.hourNum));
+
+                runOnUiThread(() -> {
+                    scheduleItems.clear();
+                    scheduleItems.addAll(items);
+                    adapter.notifyDataSetChanged();
+                });
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error fetching schedule", e);
+                runOnUiThread(() ->
+                        Toast.makeText(HomeActivity.this,
+                                "Error fetching schedule", Toast.LENGTH_SHORT).show());
             }
         }).start();
     }
 
-    private void processScheduleArray(JSONArray array, Map<Integer, ScheduleItem> hourMap, boolean isChange, boolean isEvents, boolean isExam) throws Exception {
-        for (int j = 0; j < array.length(); j++) {
-            JSONObject itemObj = array.getJSONObject(j);
-            if (isEvents){
-                System.out.println(itemObj);
-                System.out.println(itemObj);
-                System.out.println(itemObj);
-                System.out.println(itemObj);
+    private void processScheduleArray2(JSONObject hourObj, Map<Integer, ScheduleItem> hourMap) throws Exception {
+        JSONArray scheduleArray = hourObj.getJSONArray("scheduale");
+        JSONObject scheduleItem = scheduleArray.getJSONObject(0);
 
-            }
-            int hourNum = itemObj.optInt("hour", 0);
-            ScheduleItem schedItem = hourMap.get(hourNum);
-            if (schedItem==null && itemObj.has("from_hour")){
-                hourNum = itemObj.optInt("from_hour", 0);
-                schedItem = hourMap.get(hourNum);
-            }
-            if (schedItem == null) {
-                if (isEvents){
-                    System.out.println("hfu");
-                }
-                boolean find = isEvents && isChange && isExam;
-                String subject = find ? "לא זמין" : cleanSubject(itemObj.optString("subject", "לא זמין"));
-                String teacher = find ? "לא זמין" :
-                        itemObj.optString("teacherPrivateName", "לא זמין") + " " +
-                                itemObj.optString("teacherLastName", "לא זמין");
-                String colorClass = find ? "default-cell" : findColorClass(subject);
-                schedItem = new ScheduleItem(hourNum, subject, teacher, colorClass, "");
-                hourMap.put(hourNum, schedItem);
-            }
+        String subject = cleanSubject(scheduleItem.optString("subject", "לא זמין"));
+        String teacher = scheduleItem.optString("teacherPrivateName", "לא זמין") + " " + scheduleItem.optString("teacherLastName", "לא זמין");
+        int hourNum = scheduleItem.optInt("hour", -1);
+        String colorClass = findColorClass(subject);
 
-            else {
-                if (isEvents){
-                    System.out.println("hhhhhhhhhhhhhhhhhh");
-                    String title = itemObj.optString("title", "לא זמין");
-                    schedItem.addChange(title);
-                }
-                if (!schedItem.teacher.equals(itemObj.optString("teacherPrivateName", "לא זמין") + " " +
-                        itemObj.optString("teacherLastName", "לא זמין")) && itemObj.optString("teacherPrivateName", "לא זמין")!="לא זמין"){
-                    schedItem.teacher = schedItem.teacher + " / " +itemObj.optString("teacherPrivateName", "לא זמין") + " " +
-                            itemObj.optString("teacherLastName", "לא זמין");
-                }
-                if (!schedItem.subject.equals(cleanSubject(itemObj.optString("subject", "לא זמין"))) && itemObj.optString("subject", "לא זמין")!="לא זמין"){
-                    schedItem.subject = schedItem.subject + " / " +itemObj.optString("subject", "לא זמין");
-                }
-            }
+        ScheduleItem schedItem = new ScheduleItem(hourNum, subject, teacher, colorClass, "");
 
+        if (hourObj.has("exams")) {
+            JSONArray examsArray = hourObj.getJSONArray("exams");
+            for (int j = 0; j < examsArray.length(); j++) {
+                JSONObject examObj = examsArray.getJSONObject(j);
+                subject = examObj.optString("title", "מבחן");
+                teacher = examObj.optString("supervisors", "לא זמין");
 
-            if (itemObj.optInt("original_hour", -1)==-1 &&  itemObj.optString("definition", "לא זמין").equals("ביטול שיעור")){
-                schedItem.addChange("ביטול שיעור");
-            }
-            if (itemObj.optInt("original_hour", -1)==hourNum &&  itemObj.optString("definition", "לא זמין").equals("ביטול שיעור")){
-                schedItem.addChange("ביטול שיעור");
-            }
-
-            if (itemObj.optInt("original_hour", -1)!=-1){
-                ScheduleItem originalHour = hourMap.get(itemObj.optInt("original_hour", 0));
-                originalHour.addChange("ביטול שיעור");
-            }
-            if (itemObj.optString("definition", "לא זמין").equals("מילוי מקום")){
-                schedItem.addChange("מילוי מקום של " + itemObj.optString("privateName", "לא זמין") + " " + itemObj.optString("lastName", "לא זמין"));
-            }
-            if (itemObj.optString("definition", "לא זמין").equals("הזזת שיעור")){
-                schedItem.addChange("מילוי מקום של " + itemObj.optString("privateName", "לא זמין") + " " + itemObj.optString("lastName", "לא זמין"));
-            }
-
-
-            if (isChange) {
-                String definition = itemObj.optString("definition", "");
-                String type = itemObj.optString("type", "");
-                String group = itemObj.optString("group", "");
-                String fillUpType = itemObj.optString("fillUpType", "");
-                // Combine these fields to form a detailed change info string.
-                String changeDetails = definition;
-                if (!group.isEmpty()) {
-                    changeDetails += " (" + group + ")";
-                }
-                // You can append additional info if needed:
-                if (!type.isEmpty()) {
-                    changeDetails += " [" + type + "]";
-                }
-                if (!fillUpType.isEmpty()) {
-                    changeDetails += " {" + fillUpType + "}";
-                }
+                colorClass = "exam-cell";
+                schedItem.setExam(subject);
             }
         }
+
+        JSONArray changesArray = scheduleItem.getJSONArray("changes");
+
+        for (int j = 0; j < changesArray.length(); j++) {
+            JSONObject itemObj = changesArray.getJSONObject(j);
+            if (itemObj.optInt("original_hour", -1) == -1 &&
+                    itemObj.optString("definition", "לא זמין").equals("ביטול שיעור")) {
+                schedItem.addChange("ביטול שיעור");
+                schedItem.setColorClass("cancel-cell");
+            }
+            if (itemObj.optInt("original_hour", -1) == hourNum &&
+                    itemObj.optString("definition", "לא זמין").equals("ביטול שיעור")) {
+                schedItem.addChange("ביטול שיעור");
+                schedItem.setColorClass("cancel-cell");
+
+            }
+            if (itemObj.optInt("original_hour", -1) != -1) {
+                ScheduleItem originalHour = hourMap.get(itemObj.optInt("original_hour", 0));
+                originalHour.addChange("ביטול שיעור");
+                schedItem.setColorClass("cancel-cell");
+
+            }
+            if (itemObj.optString("definition", "לא זמין").equals("מילוי מקום")) {
+                schedItem.addChange("מילוי מקום של " + itemObj.optString("privateName", "לא זמין") +
+                        " " + itemObj.optString("lastName", "לא זמין"));
+            }
+            if (itemObj.optString("definition", "לא זמין").equals("הזזת שיעור")) {
+                schedItem.addChange("מילוי מקום של " + itemObj.optString("privateName", "לא זמין") +
+                        " " + itemObj.optString("lastName", "לא זמין"));
+            }
+        }
+        if (hourObj.has("events") && hourObj.getJSONArray("events").length() > 0){
+            JSONArray events = hourObj.optJSONArray("events");
+            JSONObject event = events.getJSONObject(0);
+            String title = event.getString("title");
+            String type = event.getString("title");
+            String accompaniers = event.getString("accompaniers") != null ? event.getString("accompaniers").replaceAll(",\\s*$", "") : null;
+
+
+            if (accompaniers!="," && accompaniers!=" " && accompaniers!="" && accompaniers!=null)
+                schedItem.setTeacher(accompaniers);
+            schedItem.setSubject(title);
+            schedItem.removeChanges();
+        }
+        hourMap.put(hourNum, schedItem);
     }
 
     private String cleanSubject(String subject) {
@@ -428,7 +339,7 @@ public class HomeActivity extends BaseActivity {
 //                        Toast.makeText(HomeActivity.this, "Username clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.menu_settings:
-                        startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+                        startActivity(new Intent(HomeActivity.this, PlatformsActivity.class));
 
 //                        Toast.makeText(HomeActivity.this, "Settings clicked", Toast.LENGTH_SHORT).show();
                         return true;

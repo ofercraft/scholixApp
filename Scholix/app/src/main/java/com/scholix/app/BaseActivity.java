@@ -52,8 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                         if (!BaseActivity.this.getClass().equals(HomeActivity.class)) {
                             startActivity(new Intent(BaseActivity.this, HomeActivity.class));
                             finish();
-                        } else {
-//                            Toast.makeText(BaseActivity.this, "Already in Home", Toast.LENGTH_SHORT).show();
                         }
                         break;
 
@@ -61,8 +59,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                         if (!BaseActivity.this.getClass().equals(ScheduleActivity.class)) {
                             startActivity(new Intent(BaseActivity.this, ScheduleActivity.class));
                             finish();
-                        } else {
-//                            Toast.makeText(BaseActivity.this, "Already in Schedule", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case R.id.nav_grades:
@@ -70,8 +66,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 //                            Toast.makeText(getApplicationContext(), "Opening Grades...", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(BaseActivity.this, GradesActivity.class);
                             startActivity(intent);
-                        } else {
-//                            Toast.makeText(getApplicationContext(), "Already in Grades", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case R.id.nav_messages:
@@ -79,8 +73,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 //                            Toast.makeText(getApplicationContext(), "Opening Grades...", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(BaseActivity.this, MessagesActivity.class);
                             startActivity(intent);
-                        } else {
-//                            Toast.makeText(getApplicationContext(), "Already in Grades", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case R.id.nav_account:
+//                        if (!BaseActivity.this.getClass().equals(AccountActivity.class)) {
+//                            Intent intent = new Intent(BaseActivity.this, AccountActivity.class);
+//                            startActivity(intent);
+//                        }
+                        if (!(BaseActivity.this instanceof AccountActivity)
+                                && !(BaseActivity.this instanceof PlatformsActivity)) {
+                            Intent intent = new Intent(BaseActivity.this, AccountActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                         break;
                     default:
@@ -98,9 +102,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             bottomNavigationView.setSelectedItemId(R.id.nav_grades);
         } else if (this instanceof MessagesActivity) {
             bottomNavigationView.setSelectedItemId(R.id.nav_messages);
+        } else if (this instanceof AccountActivity) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_account);
         }
-        else if (this instanceof SettingsActivity) {
-            bottomNavigationView.getMenu().setGroupCheckable(0, false, false);
+        else if (this instanceof PlatformsActivity) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_account);
+//            bottomNavigationView.getMenu().setGroupCheckable(0, false, false);
         }
     }
 
@@ -167,6 +174,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     case R.id.menu_settings:
 //                        Toast.makeText(BaseActivity.this, "Settings clicked", Toast.LENGTH_SHORT).show();
                         return true;
+
                     case R.id.menu_logout:
 //                        Toast.makeText(BaseActivity.this, "Logout clicked", Toast.LENGTH_SHORT).show();
                         // Optionally, log out and navigate to LoginActivity

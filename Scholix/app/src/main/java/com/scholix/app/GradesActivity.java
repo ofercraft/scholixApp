@@ -131,7 +131,7 @@ public class GradesActivity extends BaseActivity {
                     Toast.makeText(GradesActivity.this, "Username clicked", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.menu_settings:
-                    startActivity(new Intent(GradesActivity.this, SettingsActivity.class));
+                    startActivity(new Intent(GradesActivity.this, PlatformsActivity.class));
                     Toast.makeText(GradesActivity.this, "Settings clicked", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.menu_logout:
