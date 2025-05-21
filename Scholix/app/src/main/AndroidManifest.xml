@@ -36,7 +36,9 @@
         <activity android:name=".GradesActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".MessagesActivity" />
-<!--        <service-->
+        <activity android:name=".AccountActivity" />
+
+        <!--        <service-->
 <!--            android:name=".GradeScheduler"-->
 <!--            android:foregroundServiceType="dataSync"-->
 <!--            android:exported="false" />-->
