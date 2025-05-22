@@ -134,15 +134,15 @@ public class HomeActivity extends BaseActivity {
         setupBottomNavigation(bottomNavigationView);
 
         // Setup account menu on the person icon
-        ImageButton accountButton = findViewById(R.id.account_button);
-        if (accountButton != null) {
-            accountButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showAccountPopup(v);
-                }
-            });
-        }
+//        ImageButton accountButton = findViewById(R.id.account_button);
+//        if (accountButton != null) {
+//            accountButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    showAccountPopup(v);
+//                }
+//            });
+//        }
         int todayIdx = (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) + 6) % 7;
         if (todayIdx > 5) todayIdx = 0;
         fetchSchedule(todayIdx);

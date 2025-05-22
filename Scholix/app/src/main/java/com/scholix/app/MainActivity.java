@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.widget.Toast;
 import android.widget.Button;
@@ -26,8 +28,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText usernameEditText, passwordEditText;
-    private Button loginButton;
     private LoginManager loginManager = new LoginManager();
 
     @Override
@@ -55,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
                 "grade_sync", ExistingPeriodicWorkPolicy.REPLACE, request);
 
-        // Bind UI elements
-        usernameEditText = findViewById(R.id.username);
-        passwordEditText = findViewById(R.id.password);
-        loginButton = findViewById(R.id.login_button);
-
         SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String savedUsername = prefs.getString("username", null);
         String savedPassword = prefs.getString("password", null);
@@ -74,79 +69,18 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply(); // apply changes
                 autoLogin(savedUsername, savedPassword);
                 addAccount(savedUsername, savedPassword);
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+
 
             }
         }
-        // Set login button listener
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String username = usernameEditText.getText().toString().trim();
-                final String password = passwordEditText.getText().toString().trim();
+        else {
 
-                if (username.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Enter both username and password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Perform network login on a background thread
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            final LoginManager.LoginResult result = loginManager.validateLogin(username, password);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (result.success) {
-                                        // Retrieve details from LoginManager result
-                                        Object[] details = (Object[]) result.details;
-                                        @SuppressWarnings("unchecked")
-                                        java.util.List<String> cookieList = (java.util.List<String>) details[0];
-                                        String cookies = String.join("; ", cookieList);
-                                        String studentId = (String) details[1];
-                                        String info = details[2].toString();
-                                        String classCode = (String) details[3];
-                                        String institution = (String) details[4];
-                                        String name = (String) details[5];
-                                        addAccount(username, password);
-                                        // Save all info to SharedPreferences for persistent storage
-                                        SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = prefs.edit();
-                                        editor.putString("cookies", cookies);
-                                        editor.putString("student_id", studentId);
-                                        editor.putString("info", info);
-                                        editor.putString("class_code", classCode);
-                                        editor.putString("institution", institution);
-                                        editor.putString("name", name);
-                                        editor.putString("username", username);
-                                        editor.putString("password", password);
-                                        editor.apply();
-
-                                        Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-
-                                        // Navigate to HomeActivity
-                                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Login Failed: " + result.message, Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(MainActivity.this, "Login error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-                }).start();
-            }
-        });
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
     private void addAccount(String username, String password) {
         Account newAccount = new Account(username, password, "Webtop");

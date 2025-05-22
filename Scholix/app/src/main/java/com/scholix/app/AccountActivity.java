@@ -1,7 +1,12 @@
 package com.scholix.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
@@ -11,15 +16,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Consumer;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class AccountActivity extends BaseActivity {
     private LinearLayout itemContainer;
     private TextView label, value, todayTitle;
+    private OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient();
+
     private MaterialButton btnLogout;
     private ImageView platformArrow;
+    private SharedPreferences prefs;
 
     private BottomNavigationView bottomNavigation;
     protected int getLayoutResourceId() { return R.layout.activity_account; }
@@ -27,7 +52,7 @@ public class AccountActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account); // Make sure this matches your XML file name
+        setContentView(getLayoutResourceId()); // Make sure this matches your XML file name
 
 
 
@@ -54,6 +79,40 @@ public class AccountActivity extends BaseActivity {
         });
 
 
+        // Bind TextViews
+        TextView nameValue = findViewById(R.id.value_name);
+        TextView phoneValue = findViewById(R.id.value_phone);
+        TextView emailValue = findViewById(R.id.value_email);
+
+        LinearLayout phoneGroup = (LinearLayout) findViewById(R.id.label_phone).getParent();
+        LinearLayout emailGroup = (LinearLayout) findViewById(R.id.label_email).getParent();
+
+        fetchAccountInfo(this,
+                grades -> { /* handle grades if needed */ },
+                info -> runOnUiThread(() -> {
+                    String name = info[2];
+                    String phone = info[0];
+                    String email = info[1];
+
+                    nameValue.setText(name);
+
+                    if (phone.isEmpty()) {
+                        phoneGroup.setVisibility(View.GONE);
+                    } else {
+                        phoneValue.setText(phone);
+                        phoneGroup.setVisibility(View.VISIBLE);
+                    }
+
+                    if (email.isEmpty()) {
+                        emailGroup.setVisibility(View.GONE);
+                    } else {
+                        emailValue.setText(email);
+                        emailGroup.setVisibility(View.VISIBLE);
+                    }
+                })
+        );
+
+
         MaterialButton logoutButton = findViewById(R.id.btn_logout);
         logoutButton.setOnClickListener(v -> {
             CookieManager cookieManager = CookieManager.getInstance();
@@ -74,56 +133,77 @@ public class AccountActivity extends BaseActivity {
         });
 
 
-//        itemContainer.setOnClickListener(v -> {
-//            // Navigate to platforms page (replace PlatformsActivity with your actual class)
-//            Intent intent = new Intent(AccountActivity.this, SettingsActivity.class);
+//
+//
+//
+//
+//        findViewById(R.id.btn_switch_language).setOnClickListener(v -> {
+//            String current = LocaleHelper.getSavedLanguage(this);
+//            String next = current.equals("he") ? "en" : "he";
+//
+//            LocaleHelper.setSavedLanguage(this, next);
+//
+//            Intent intent = getIntent();
+//            finish();
 //            startActivity(intent);
+//            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 //        });
-//
-//        // Initialize views
-//        itemContainer = findViewById(R.id.item_container);
-//        label = findViewById(R.id.label);
-//        value = findViewById(R.id.value);
-//        todayTitle = findViewById(R.id.today_title);
-//        btnLogout = findViewById(R.id.btn_logout);
-//        bottomNavigation = findViewById(R.id.bottom_navigation);
-//
-//        // Set up click for the row (platforms)
-//        itemContainer.setOnClickListener(v -> {
-//            // Navigate to platforms page (replace PlatformsActivity with your actual class)
-//            Intent intent = new Intent(AccountActivity.this, PlatformsActivity.class);
-//            startActivity(intent);
-//        });
-//
-//        // Set up logout button
-//        btnLogout.setOnClickListener(v -> {
-//            Toast.makeText(AccountActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-//            // Add actual logout logic here if needed
-//
-//            // Example: return to login activity
-//            // Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
-//            // startActivity(intent);
-//            // finish();
-//        });
-//
-//        // Bottom navigation item selection
-//        bottomNavigation.setOnItemSelectedListener(item -> {
-//            switch (item.getItemId()) {
-//                case R.id.menu_home:
-//                    startActivity(new Intent(AccountActivity.this, HomeActivity.class));
-//                    return true;
-//                case R.id.menu_classes:
-//                    startActivity(new Intent(AccountActivity.this, ClassesActivity.class));
-//                    return true;
-//                case R.id.menu_account:
-//                    // Already on this screen
-//                    return true;
-//                default:
-//                    return false;
-//            }
-//        });
-//
-//        // Mark the current menu item as selected
-//        bottomNavigation.setSelectedItemId(R.id.menu_account);
+
+
     }
+
+    public void fetchAccountInfo(Context context, Consumer<List<Grade>> gradesCallback, Consumer<String[]> infoCallback) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            List<Grade> gradeList = new ArrayList<>();
+            String[] returnValues = {"", "", ""}; // phone, email, name
+
+            try {
+                SharedPreferences prefs = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+                String savedCookies = prefs.getString("cookies", "");
+
+                JSONObject requestBodyJson = new JSONObject();
+                RequestBody body = RequestBody.create(
+                        requestBodyJson.toString(),
+                        MediaType.get("application/json; charset=utf-8")
+                );
+
+                Request request = new Request.Builder()
+                        .url("https://webtopserver.smartschool.co.il/server/api/settings/GetUserProfile")
+                        .addHeader("Cookie", savedCookies)
+                        .post(body)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    String responseBody = response.body() != null ? response.body().string() : "";
+                    JSONObject jsonResponse = new JSONObject(responseBody);
+                    JSONObject data = jsonResponse.getJSONObject("data");
+
+                    String name = prefs.getString("name", ""); // or from prefs if more accurate
+                    String phone = data.optString("cellphone", "");
+                    String email = data.optString("email", "");
+                    returnValues = new String[]{phone, email, name};
+
+                    Log.d("AccountInfo", "Profile: " + data.toString());
+                } else {
+                    Log.e("AccountInfo", "Failed with code: " + response.code());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Post results back to UI thread
+            String[] finalReturnValues = returnValues;
+            mainHandler.post(() -> {
+                gradesCallback.accept(gradeList);
+                infoCallback.accept(finalReturnValues);
+            });
+        });
+    }
+
+
 }

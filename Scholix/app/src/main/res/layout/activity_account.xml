@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    android:textDirection="locale">
 
     <!-- Main Content Container -->
     <LinearLayout
@@ -81,7 +83,110 @@
             </FrameLayout>
 
         </LinearLayout>
+        <!-- Name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/label_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/text" />
+
+            <TextView
+                android:id="@+id/value_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="your name here"
+                android:textSize="14sp"
+                android:textColor="@color/text"
+                android:maxLines="2"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Phone -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/label_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_number"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/text" />
+
+            <TextView
+                android:id="@+id/value_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="your phone number here"
+                android:textSize="14sp"
+                android:textColor="@color/text"
+                android:maxLines="2"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Email -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/label_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/text" />
+
+            <TextView
+                android:id="@+id/value_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="your email here"
+                android:textSize="14sp"
+                android:textColor="@color/text"
+                android:maxLines="2"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Language Switch Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_switch_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="swtcd"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cornerRadius="16dp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/backgroundAccent2"
+            android:icon="@drawable/ic_logo"
+            android:iconTint="@android:color/white"
+            android:gravity="center" />
+
     </LinearLayout>
+
 
     <!-- Spacer to push logout above bottom nav -->
     <View

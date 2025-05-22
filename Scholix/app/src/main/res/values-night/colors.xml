@@ -9,6 +9,7 @@
     <color name="text">#EAEAEA</color> <!-- Soft white -->
     <color name="textAccent">#64B5F6</color> <!-- More blue -->
     <color name="textContrast">#444444</color> <!-- Lighter gray -->
+    <color name="tab_unselected">#FFFFFF</color>
 
     <color name="colorPrimary">#2196F3</color> <!-- Blue -->
     <color name="colorPrimaryDark">#1976D2</color> <!-- Darker blue -->

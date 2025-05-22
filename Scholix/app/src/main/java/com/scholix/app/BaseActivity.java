@@ -23,17 +23,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         setupBottomNavigation(bottomNavigationView);
 
-
-
-
-        // Setup account (person icon) popup menu
-        setupAccountMenu();
     }
 
     protected abstract int getLayoutResourceId();
@@ -112,17 +108,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     // Setup the account menu by setting a click listener on the person icon
-    private void setupAccountMenu() {
-        ImageButton accountButton = findViewById(R.id.account_button);
-        if (accountButton != null) {
-            accountButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showAccountPopup(v);
-                }
-            });
-        }
-    }
+//    private void setupAccountMenu() {
+//        ImageButton accountButton = findViewById(R.id.account_button);
+//        if (accountButton != null) {
+//            accountButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    showAccountPopup(v);
+//                }
+//            });
+//        }
+//    }
 
     // Show the popup menu with icons using reflection hacks
     private void showAccountPopup(View anchor) {

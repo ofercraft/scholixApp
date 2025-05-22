@@ -22,12 +22,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     buildFeatures {
         viewBinding true
     }
+
 }
 dependencies {
     implementation 'com.leinardi.android:speed-dial:3.3.0'
@@ -37,7 +38,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.navigation:navigation-fragment:2.9.0'
     implementation 'androidx.navigation:navigation-ui:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
     implementation 'androidx.security:security-crypto:1.1.0-alpha07'
     implementation 'androidx.credentials:credentials:1.5.0'
     implementation "androidx.credentials:credentials-play-services-auth:1.5.0"

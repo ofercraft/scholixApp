@@ -4,83 +4,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="48dp"
+
     android:background="@color/background">
     <LinearLayout
+        style="@style/background"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="40dp"
-        android:paddingBottom="12dp"
-        android:background="@color/backgroundAccent2"
-        android:elevation="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|end"
-            android:paddingBottom="3dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp">
-
-            <!-- Left icon -->
-
-            <!-- Spacer -->
-            <ImageButton
-                android:id="@+id/account_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Account"
-                android:src="@drawable/three_dots"
-                app:tint="#D7D7D7" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <!-- Right-aligned title -->
-            <TextView
-                android:id="@+id/grades_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ציונים"
-                android:textColor="#D7D7D7"
-                android:fontFamily="@font/assistant"
-                android:textSize="33sp"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- Scrollable Grades List -->
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="92dp"
-        android:overScrollMode="never"
-        android:clipToPadding="false"
-        android:paddingBottom="80dp"
-        android:fillViewport="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp"
-        style="@style/background">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/grades_recycler_view"
+        android:layout_marginBottom="56dp">
+        <TextView
+            android:id="@+id/today_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp" />
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="ציונים"
+            android:textColor="@color/text"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Scrollable Grades List -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                style="@style/background">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/grades_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+
 
 <!--    &lt;!&ndash; Bottom Navigation &ndash;&gt;-->
 <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->

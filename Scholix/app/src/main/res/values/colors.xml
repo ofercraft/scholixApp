@@ -3,7 +3,7 @@
 
 
     <color name="background">#F5F5F5</color>
-    <color name="backgroundAccent">#303030</color>
+    <color name="backgroundAccent">#F2F2F2</color>
     <color name="backgroundAccent2">#211f24</color> <!-- Lighter gray -->
 
     <color name="text">#000000</color>
@@ -20,7 +20,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main">#000000</color>
     <!-- res/values/colors.xml -->
-    <color name="tab_unselected">#9cabba</color>
+    <color name="tab_unselected">#000000</color>
 
 
     <color name="waveColor1">#2196F3</color>

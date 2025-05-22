@@ -53,32 +53,32 @@
                     android:id="@+id/tab_sunday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ראשון" />
+                    android:text="@string/sunday" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_monday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="שני" />
+                    android:text="@string/monday" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_tuesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="שלישי" />
+                    android:text="@string/tuesday" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_wednesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="רביעי" />
+                    android:text="@string/wednesday" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_thursday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="חמישי" />
+                    android:text="@string/thursday" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_friday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="שישי" />
+                    android:text="@string/friday" />
             </com.google.android.material.tabs.TabLayout>
 
             <androidx.recyclerview.widget.RecyclerView

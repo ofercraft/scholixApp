@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WebtopGradeFetcher {
-    private static final String TAG = "GradeFetcher";
-    private static final String API_URL = "https://webtopserver.smartschool.co.il/server/api/PupilCard/GetPupilGrades";
     private OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient();
 
     private String cookies;
@@ -39,7 +37,7 @@ public class WebtopGradeFetcher {
             int studyYear = (year > 0) ? year : java.time.LocalDate.now().getYear();
 
             if (studentId.isEmpty()) {
-                Log.e(TAG, "Student ID is empty.");
+                Log.e("GradeFetcher", "Student ID is empty.");
                 return gradeList;
             }
 
@@ -52,14 +50,14 @@ public class WebtopGradeFetcher {
 
             RequestBody body = RequestBody.create(requestBodyJson.toString(), MediaType.get("application/json; charset=utf-8"));
             Request request = new Request.Builder()
-                    .url(API_URL)
+                    .url("https://webtopserver.smartschool.co.il/server/api/PupilCard/GetPupilGrades")
                     .addHeader("Cookie", cookies)
                     .post(body)
                     .build();
 
             Response response = client.newCall(request).execute();
             if (!response.isSuccessful()) {
-                Log.e(TAG, "API request failed: " + response.code());
+                Log.e("GradeFetcher", "API request failed: " + response.code());
                 return gradeList;
             }
 
@@ -79,10 +77,10 @@ public class WebtopGradeFetcher {
                 }
             }
 
-            Log.d(TAG, "Grades fetched: " + gradeList.size());
+            Log.d("GradeFetcher", "Grades fetched: " + gradeList.size());
 
         } catch (Exception e) {
-            Log.e(TAG, "Error fetching grades", e);
+            Log.e("GradeFetcher", "Error fetching grades", e);
         }
 
         return gradeList;

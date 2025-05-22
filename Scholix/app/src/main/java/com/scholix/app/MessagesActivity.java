@@ -48,9 +48,9 @@ public class MessagesActivity extends BaseActivity {
         messagesRecyclerView.setAdapter(messageAdapter);
 
         loadMessagesFromApi();
-
-        ImageButton accountButton = findViewById(R.id.account_button);
-        accountButton.setOnClickListener(this::showAccountPopup);
+//
+//        ImageButton accountButton = findViewById(R.id.account_button);
+//        accountButton.setOnClickListener(this::showAccountPopup);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         setupBottomNavigation(bottomNavigationView);

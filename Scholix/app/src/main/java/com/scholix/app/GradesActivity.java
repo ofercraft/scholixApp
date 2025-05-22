@@ -47,11 +47,11 @@ public class GradesActivity extends BaseActivity {
         DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         gradesRecyclerView.addItemDecoration(divider);
 
-        // Setup account menu
-        ImageButton accountButton = findViewById(R.id.account_button);
-        if (accountButton != null) {
-            accountButton.setOnClickListener(this::showAccountPopup);
-        }
+//        // Setup account menu
+//        ImageButton accountButton = findViewById(R.id.account_button);
+//        if (accountButton != null) {
+//            accountButton.setOnClickListener(this::showAccountPopup);
+//        }
 
         prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
 

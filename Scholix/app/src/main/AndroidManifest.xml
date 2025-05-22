@@ -37,6 +37,7 @@
         <activity android:name=".PlatformsActivity" />
         <activity android:name=".MessagesActivity" />
         <activity android:name=".AccountActivity" />
+        <activity android:name=".LoginActivity" />
 
         <!--        <service-->
 <!--            android:name=".GradeScheduler"-->
