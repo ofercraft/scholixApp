@@ -5,14 +5,19 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.LocaleList;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,14 +30,39 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     private LoginManager loginManager = new LoginManager();
+    public static void applyAppLocale(Context context, String langCode) {
+        Locale locale = new Locale(langCode);
+        Locale.setDefault(locale);
+        Configuration config = context.getResources().getConfiguration();
+        config.setLocale(locale);
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("LANGUAGE_TEST", getString(R.string.login));
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
+
         setContentView(R.layout.activity_main);
 //        Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
 //        this.startActivity(intent);
@@ -150,4 +180,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

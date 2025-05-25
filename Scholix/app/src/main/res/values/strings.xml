@@ -17,8 +17,8 @@
     <!-- TODO: Remove or change this placeholder text -->
 
 
-    <string name="webtop">webtop</string>
-    <string name="barilan">בר אילן</string>
+    <string name="webtop">Webtop</string>
+    <string name="barilan">Bar Ilan</string>
     <string name="account">Account</string>
     <string name="platforms">Platforms</string>
     <string name="more_information">more information</string>
@@ -26,12 +26,12 @@
     <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="email">Email</string>
-    <string name="friday">friday</string>
-    <string name="thursday">thursday</string>
-    <string name="wednesday">wednesday</string>
-    <string name="tuesday">tuesday</string>
-    <string name="monday">monday</string>
-    <string name="sunday">sunday</string>
+    <string name="friday">Fri</string>
+    <string name="thursday">Thurs</string>
+    <string name="wednesday">Wed</string>
+    <string name="tuesday">Tues</string>
+    <string name="monday">Mon</string>
+    <string name="sunday">Sun</string>
     <string name="messages">Messages</string>
     <string name="home">Home</string>
 

@@ -6,13 +6,14 @@ android {
     namespace 'com.scholix.app'
     compileSdk 35
 
-
     defaultConfig {
         applicationId "com.scholix.app"
-        minSdkVersion 30
+        minSdkVersion 34
         targetSdkVersion 35
         versionCode 1
         versionName "beta"
+        resConfigs "en", "he"
+
     }
 
     buildTypes {

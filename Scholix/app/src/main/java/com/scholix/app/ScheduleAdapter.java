@@ -100,11 +100,38 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             case "cancel-cell":
                 bgColorStr = "#7d5b5d";
                 break;
-
+            case "custom-red-cell":
+                bgColorStr = "#ffffc0c0";
+                break;
+            case "custom-green-cell":
+                bgColorStr = "#ffc0ffc0";
+                break;
+            case "custom-blue-cell":
+                bgColorStr = "#ffc0cfff";
+                break;
+            case "custom-orange-cell":
+                bgColorStr = "#ffffe0c0";
+                break;
+            case "custom-yellow-cell":
+                bgColorStr = "#ffffffc0";
+                break;
+            case "custom-purple-cell":
+                bgColorStr = "#ffe0c0ff";
+                break;
+            case "custom-teal-cell":
+                bgColorStr = "#ffc0ffff";
+                break;
+            case "custom-lime-cell":
+                bgColorStr = "#ffe0ffc0";
+                break;
+            case "custom-pink-cell":
+                bgColorStr = "#ffffc0d0";
+                break;
             default:
                 bgColorStr = "#ffffffff";
                 break;
         }
+
         int bgColor = Color.parseColor(bgColorStr);
         holder.cardView.setCardBackgroundColor(bgColor);
     }

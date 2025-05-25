@@ -45,6 +45,15 @@ public class ScheduleItem {
     public void removeChanges() {
         this.changes="";
     }
+    public void clear() {
+        this.hourNum = hourNum;
+        this.subject = subject;
+        this.teacher = teacher;
+        this.colorClass = colorClass;
+        this.changes = changes;
+        this.isExam = false;
+        this.examSubject = "";
+    }
     @Override
     public String toString() {
         return "ScheduleItem{" +

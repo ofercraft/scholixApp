@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layoutDirection="locale"
     android:layout_height="match_parent">
 
-    <!-- Main Content Container -->
+    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,25 +21,25 @@
             android:padding="16dp"
             android:layout_marginBottom="56dp">
 
+            <!-- Title -->
             <TextView
                 android:id="@+id/today_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:text="מערכת"
+                android:text="@string/schedule"
                 android:textColor="@color/text"
                 android:textSize="24sp"
-
                 android:textStyle="bold" />
 
+            <!-- Day Tabs -->
             <com.google.android.material.tabs.TabLayout
                 style="@style/background"
-
                 android:id="@+id/day_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
+                android:layoutDirection="locale"
                 android:gravity="center"
                 app:tabMode="fixed"
                 app:tabGravity="fill"
@@ -80,23 +81,66 @@
                     android:layout_height="wrap_content"
                     android:text="@string/friday" />
             </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/schedule_mode_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_original"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Original"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:cornerRadius="20dp"
+                    app:checkedIcon="@null"
+                    app:backgroundTint="@color/button_background_selector"
+                    android:textColor="@color/button_text_selector" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_updated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Updated"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:cornerRadius="20dp"
+                    app:checkedIcon="@null"
+                    app:backgroundTint="@color/button_background_selector"
+                    android:textColor="@color/button_text_selector" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <!-- Schedule RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/schedule_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="480dp"
                 android:layout_weight="1"
                 app:layoutManager="LinearLayoutManager" />
+
         </LinearLayout>
     </ScrollView>
-    <!--     Bottom Navigation View -->
+
+    <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:background="#1b2127"
         android:layout_gravity="bottom"
+        android:background="#1b2127"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconSize="24dp"
         app:itemIconTint="@color/nav_item_color"

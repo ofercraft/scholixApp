@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
 >
@@ -14,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:paddingHorizontal="0dp"
         android:background="@color/background"
 
         >
@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginStart="0dp"/>
 
         <!-- Subject (Right side, Bold) -->
         <TextView
@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="end"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="0dp"/>
 
         <!-- Title (Right under Subject) -->
         <TextView
@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/subject_text"
             android:gravity="end"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="0dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
