@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -77,6 +78,11 @@ public class GradesActivity extends BaseActivity {
                 new Thread(() -> {
                     List<Grade> webtopGrades = webtopFetcher.fetchGrades("b");
                     runOnUiThread(() -> {
+                        TextView averageGrade = findViewById(R.id.average_grade);
+                        int average = webtopFetcher.getAverage(webtopGrades);
+
+                        averageGrade.setText(String.valueOf(average));
+
                         gradeList.addAll(webtopGrades);
                         gradeAdapter.notifyDataSetChanged();
                     });

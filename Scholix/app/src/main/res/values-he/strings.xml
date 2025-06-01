@@ -38,6 +38,8 @@
     <string name="sunday">ראשון</string>
     <string name="messages">הודעות</string>
     <string name="home">בית</string>
+    <string name="average">ממוצע</string>
+    <string name="good_morning">בוקר טוב</string>
 
 
 </resources>

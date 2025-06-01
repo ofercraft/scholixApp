@@ -40,7 +40,6 @@ public class LoginManager {
         String loginUrl = "https://webtopserver.smartschool.co.il/server/api/user/LoginByUserNameAndPassword";
         // Encrypt the username with our updated Base64 encryption
         String encryptedData = encryptStringToServer(username + "0");
-        System.out.println("username: " + username);
 
         // Prepare the JSON request
         JSONObject loginData = new JSONObject();
@@ -69,7 +68,6 @@ public class LoginManager {
             // Retrieve the error description from the response; if not available, set a default error message.
             String errorMsg = jsonResponse.optString("errorDescription", "Unknown error occurred");
             // Print the error to the console/log
-            System.out.println("Login error: " + errorMsg);
             return new LoginResult(false, errorMsg, null);
         }
 
@@ -80,13 +78,6 @@ public class LoginManager {
         String classCode = dataObj.getString("classCode") + "|" + dataObj.get("classNumber").toString();
         String institution = dataObj.getString("institutionCode");
         String name = dataObj.getString("firstName") + " " + dataObj.getString("lastName");
-        System.out.println(institution);
-        System.out.println(institution);
-        System.out.println(institution);
-        System.out.println(institution);
-        System.out.println(institution);
-
-
 
         return new LoginResult(true, "fine", new Object[]{cookies, studentId, dataObj, classCode, institution, name});
     }

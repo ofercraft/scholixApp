@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/background"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -25,30 +26,77 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:text="בוקר טוב"
+                android:text="@string/good_morning"
                 android:textColor="@color/text"
                 android:textSize="24sp"
-
                 android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:text="מערכת היום"
+                android:text="@string/schedule"
                 android:textColor="@color/text"
                 android:textSize="24sp"
-
                 android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/schedule_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="480dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 app:layoutManager="LinearLayoutManager" />
+
+            <!-- Average Card moved below RecyclerView -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                android:layout_gravity="center_horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="locale"
+                    android:padding="24dp"
+                    android:background="@color/backgroundAccent"
+                    android:elevation="4dp">
+
+                    <TextView
+                        android:id="@+id/average_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average"
+                        android:textSize="50sp"
+                        android:textColor="@color/text"
+                        android:textStyle="bold"
+                        android:textAlignment="viewStart"
+                        android:gravity="start"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                        android:id="@+id/average_grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="110sp"
+                        android:textColor="@color/textAccent"
+                        android:textStyle="bold"
+                        android:textAlignment="viewEnd"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </ScrollView>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

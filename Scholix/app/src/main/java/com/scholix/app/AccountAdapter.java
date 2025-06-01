@@ -34,9 +34,34 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     }
 
     public AccountAdapter(List<Account> accountList, DeleteListener deleteListener, SaveListener saveListener) {
-        this.accountList = accountList;
         this.deleteListener = deleteListener;
         this.saveListener = saveListener;
+
+        // Find the main account and move it to top
+        int mainIndex = -1;
+        for (int i = 0; i < accountList.size(); i++) {
+            if (accountList.get(i).isMain()) {
+                System.out.println("dsadasasdasadad");
+                mainIndex = i;
+                break;
+            }
+        }
+
+        if (mainIndex > 0) {
+            Account mainAccount = accountList.remove(mainIndex);
+            accountList.add(0, mainAccount);
+        }
+
+        // If none marked, make first one main
+        if (accountList.size() > 0) {
+            for (Account acc : accountList) {
+                acc.setMain(false);
+            }
+            accountList.get(0).setMain(true);
+        }
+
+        this.accountList = accountList;
+
     }
 
     @NonNull
@@ -49,8 +74,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     @Override
     public void onBindViewHolder(@NonNull AccountViewHolder holder, int position) {
         Account account = accountList.get(position);
-
+        holder.name.setText(account.getName());
         holder.username.setText(account.getUsername());
+        holder.password.setText(account.getPassword());
         holder.password.setText(account.getPassword());
 
         // Source Spinner setup
@@ -79,10 +105,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
             // Edit Mode
             holder.username.setEnabled(true);
             holder.password.setEnabled(true);
+            holder.name.setEnabled(true);
+            holder.username.setVisibility(View.VISIBLE);
             holder.password.setVisibility(View.VISIBLE);
             holder.saveBtn.setVisibility(View.VISIBLE);
             holder.editBtn.setVisibility(View.GONE);
-            holder.deleteBtn.setVisibility(View.GONE);
+            holder.deleteBtn.setVisibility(View.VISIBLE);
             holder.sourceSpinner.setVisibility(View.VISIBLE);
             holder.password.setInputType(InputType.TYPE_CLASS_TEXT);
 
@@ -98,6 +126,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
             // View Mode
             holder.username.setEnabled(false);
             holder.password.setEnabled(false);
+            holder.username.setVisibility(View.GONE);
+
             holder.password.setVisibility(View.GONE);
             holder.saveBtn.setVisibility(View.GONE);
             holder.editBtn.setVisibility(View.VISIBLE);
@@ -122,6 +152,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
         // Save button clicked
         holder.saveBtn.setOnClickListener(v -> {
+            String updatedName = holder.name.getText().toString();
+
             String updatedUsername = holder.username.getText().toString();
             String updatedPassword = holder.password.getText().toString();
             String updatedSource = holder.sourceSpinner.getSelectedItem().toString();
@@ -140,6 +172,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
                         ((PlatformsActivity) holder.itemView.getContext()).runOnUiThread(() -> {
                             if (result.success) {
+                                account.setName(updatedName);
                                 account.setUsername(updatedUsername);
                                 account.setPassword(updatedPassword);
                                 account.setSource(updatedSource);
@@ -161,6 +194,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
             } else {
                 // Non-Webtop → Save immediately
                 account.setUsername(updatedUsername);
+                account.setName(updatedName);
                 account.setPassword(updatedPassword);
                 account.setSource(updatedSource);
                 // Save Year if Bar Ilan
@@ -190,7 +224,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     }
 
     public static class AccountViewHolder extends RecyclerView.ViewHolder {
-        EditText username, password;
+        EditText username, password, name;
+
         Spinner sourceSpinner, yearSpinner;
         Button editBtn, deleteBtn, saveBtn;
 
@@ -198,6 +233,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
             super(itemView);
             username = itemView.findViewById(R.id.account_username);
             password = itemView.findViewById(R.id.account_password);
+            name = itemView.findViewById(R.id.account_name);
+
             sourceSpinner = itemView.findViewById(R.id.account_source_spinner);
             yearSpinner = itemView.findViewById(R.id.account_year_spinner);
             editBtn = itemView.findViewById(R.id.edit_button);

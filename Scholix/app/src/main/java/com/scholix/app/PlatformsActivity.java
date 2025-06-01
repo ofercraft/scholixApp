@@ -11,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PlatformsActivity extends BaseActivity {
@@ -77,8 +80,44 @@ public class PlatformsActivity extends BaseActivity {
         findViewById(R.id.back_arrow_container).setOnClickListener(v -> {
             finish(); // or go back to AccountActivity explicitly if needed
         });
-    }
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+                int from = viewHolder.getAdapterPosition();
+                int to = target.getAdapterPosition();
+
+                Collections.swap(accountList, from, to);
+                accountAdapter.notifyItemMoved(from, to);
+
+                markTopAsMainAccount();
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // no swipe
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(accountsRecyclerView);
+
+    }
+    private void markTopAsMainAccount() {
+        System.out.println(accountList.get(0).getUsername());
+        for (int i = 0; i < accountList.size(); i++) {
+            accountList.get(i).setMain(i == 0);
+            accountList.get(i).setLocation(i);
+        }
+        saveAccounts();
+        accountAdapter.notifyDataSetChanged();
+    }
+    private Account getMain() {
+        return accountList.get(0);
+    }
     private void loadAccounts() {
         String json = prefs.getString(ACCOUNTS_KEY, null);
         if (json != null) {
@@ -91,26 +130,13 @@ public class PlatformsActivity extends BaseActivity {
 
     private void saveAccounts() {
         String json = gson.toJson(accountList);
-        System.out.println(json);
-        System.out.println(json);
-        System.out.println(json);
-        System.out.println(json);
-        System.out.println(json);
-        System.out.println(json);
-        System.out.println(json);
-
-
-
-
-
-
-
 
         prefs.edit().putString(ACCOUNTS_KEY, json).apply();
     }
 
     private void showAddAccountDialog() {
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_account, null);
+        EditText nameInput = dialogView.findViewById(R.id.dialog_name);
         EditText usernameInput = dialogView.findViewById(R.id.dialog_username);
         EditText passwordInput = dialogView.findViewById(R.id.dialog_password);
         Spinner sourceSpinner = dialogView.findViewById(R.id.dialog_source_spinner);
@@ -154,6 +180,7 @@ public class PlatformsActivity extends BaseActivity {
 
         dialog.setOnShowListener(d -> {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                String name = nameInput.getText().toString().trim();
                 String username = usernameInput.getText().toString().trim();
                 String password = passwordInput.getText().toString().trim();
                 String selectedSource = sourceSpinner.getSelectedItem().toString();
@@ -162,9 +189,11 @@ public class PlatformsActivity extends BaseActivity {
                     Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (name.isEmpty()) name = selectedSource;
 
                 if (selectedSource.equals("Webtop")) {
                     // Validate Webtop login
+                    String finalName = name;
                     new Thread(() -> {
                         try {
                             LoginManager loginManager = new LoginManager();
@@ -172,7 +201,7 @@ public class PlatformsActivity extends BaseActivity {
 
                             runOnUiThread(() -> {
                                 if (result.success) {
-                                    Account newAccount = new Account(username, password, selectedSource);
+                                    Account newAccount = new Account(username, password, selectedSource, finalName);
                                     accountList.add(newAccount);
                                     saveAccounts();
                                     accountAdapter.notifyDataSetChanged();
@@ -188,8 +217,8 @@ public class PlatformsActivity extends BaseActivity {
                         }
                     }).start();
                 } else {
-                    // Bar Ilan or Classroom
-                    Account newAccount = new Account(username, password, selectedSource);
+                    String finalName = name;
+                    Account newAccount = new Account(username, password, selectedSource, finalName);
                     if (selectedSource.equals("Bar Ilan")) {
                         int selectedYear = Integer.parseInt(yearSpinner.getSelectedItem().toString());
                         newAccount.setYear(selectedYear);

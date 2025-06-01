@@ -15,6 +15,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
+        <EditText
+            android:id="@+id/account_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/text"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:hint="Name" />
 
         <!-- Username -->
         <EditText
@@ -76,14 +86,6 @@
                 android:layout_marginEnd="8dp" />
 
             <Button
-                android:id="@+id/delete_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DELETE"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/backgroundAccent" />
-
-            <Button
                 android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,6 +94,14 @@
                 android:textColor="@color/backgroundAccent"
                 android:visibility="gone"
                 android:layout_marginStart="8dp" />
+
+            <Button
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DELETE"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/backgroundAccent" />
 
         </LinearLayout>
 

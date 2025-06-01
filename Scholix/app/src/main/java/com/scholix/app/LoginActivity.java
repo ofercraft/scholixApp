@@ -132,7 +132,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void addAccount(String username, String password) {
-        Account newAccount = new Account(username, password, "Webtop");
+        Account newAccount = new Account(username, password, "Webtop", "Main");
+        newAccount.setMain(true);
         List<Account> accountList;
         Gson gson = new Gson();
 

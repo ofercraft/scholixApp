@@ -85,4 +85,20 @@ public class WebtopGradeFetcher {
 
         return gradeList;
     }
+    public int getAverage(List<Grade> grades) {
+
+        int total = 0;
+        int count = 0;
+
+        for (Grade g : grades) {
+            try {
+                int num = Integer.parseInt(g.getGrade().trim());
+                total += num;
+                count++;
+            } catch (NumberFormatException e) {
+                // skip non-numeric grades
+            }
+        }
+        return (count > 0) ? Math.round((float) total / count) : 0;
+    }
 }

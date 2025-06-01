@@ -47,22 +47,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("LANGUAGE_TEST", getString(R.string.login));
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-        Log.d("LANGUAGE", Locale.getDefault().getLanguage());
-
         setContentView(R.layout.activity_main);
 //        Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
 //        this.startActivity(intent);
@@ -93,12 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
             // Clear cookies ONLY when first launching the app (not when returning to MainActivity)
             if (isTaskRoot()) {
-                System.out.println("ROOT");
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.remove("cookies");
                 editor.apply(); // apply changes
                 autoLogin(savedUsername, savedPassword);
-                addAccount(savedUsername, savedPassword);
+//                addAccount(savedUsername, savedPassword, "Main");
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
@@ -112,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-    private void addAccount(String username, String password) {
-        Account newAccount = new Account(username, password, "Webtop");
+    private void addAccount(String username, String password, String name) {
+        Account newAccount = new Account(username, password, "Webtop", name);
         List<Account> accountList;
         Gson gson = new Gson();
 

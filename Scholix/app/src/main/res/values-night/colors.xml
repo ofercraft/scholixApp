@@ -4,7 +4,7 @@
     <color name="background">#111518</color> <!-- Darker gray -->
 <!--    <color name="backgroundAccent">#2A2A2A</color> &lt;!&ndash; Lighter gray &ndash;&gt;-->
     <color name="backgroundAccent">#1b2127</color> <!-- Lighter gray -->
-    <color name="backgroundAccent2">#211f24</color> <!-- Lighter gray -->
+    <color name="backgroundAccent2">#1b2127</color> <!-- Lighter gray -->
 
     <color name="text">#EAEAEA</color> <!-- Soft white -->
     <color name="textAccent">#64B5F6</color> <!-- More blue -->

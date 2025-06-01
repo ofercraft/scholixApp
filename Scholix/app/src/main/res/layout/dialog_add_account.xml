@@ -16,6 +16,13 @@
         android:backgroundTint="@color/backgroundAccent"
         android:layout_height="wrap_content"
         android:padding="20dp">
+        <EditText
+            android:id="@+id/dialog_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="text"
+            android:layout_marginBottom="10dp"/>
 
         <!-- Username -->
         <EditText

@@ -17,7 +17,6 @@ public class GradesWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int widgetId : appWidgetIds) {
-            System.out.println("hi there");
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_grades);
 
             Intent serviceIntent = new Intent(context, GradeWidgetService.class);
@@ -66,7 +65,6 @@ public class GradesWidget extends AppWidgetProvider {
         int[] widgetIds = appWidgetManager.getAppWidgetIds(componentName);
 
         for (int widgetId : widgetIds) {
-            System.out.println("1");
             updateSingleWidget(context, appWidgetManager, widgetId);
         }
     }

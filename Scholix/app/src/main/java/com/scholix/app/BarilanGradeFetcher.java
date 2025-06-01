@@ -31,13 +31,6 @@ public class BarilanGradeFetcher {
 
     public BarilanGradeFetcher(Context context, String username, String password, int year, GradesCallback callback) {
         this.year = year; // Store year for potential use
-        System.out.println(year);
-        System.out.println(year);
-        System.out.println(year);
-        System.out.println(year);
-        System.out.println(year);
-        System.out.println(year);
-
         executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> login(username, password, callback));
     }
@@ -98,12 +91,6 @@ public class BarilanGradeFetcher {
                         .getJSONArray("clientData")
                         .getJSONObject(year-1)
                         .getJSONArray("__body");
-                System.out.println("d");
-                System.out.println("d");
-                System.out.println("d");
-                System.out.println("d");
-                System.out.println("d");
-                System.out.println(gradesArray.toString());
                 for (int i = 0; i < gradesArray.length(); i++) {
                     JSONObject gradeObject = gradesArray.getJSONObject(i);
                     String subject = gradeObject.optString("krs_shm", "לא ידוע");

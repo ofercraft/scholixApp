@@ -34,6 +34,8 @@
     <string name="sunday">Sun</string>
     <string name="messages">Messages</string>
     <string name="home">Home</string>
+    <string name="average">Average</string>
+    <string name="good_morning">Good Morning</string>
 
 
 </resources>

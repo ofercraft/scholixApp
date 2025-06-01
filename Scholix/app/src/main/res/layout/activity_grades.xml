@@ -12,8 +12,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:layout_marginBottom="56dp">
+
         <TextView
             android:id="@+id/today_title"
             android:layout_width="match_parent"
@@ -24,6 +28,106 @@
             android:textColor="@color/text"
             android:textSize="24sp"
             android:textStyle="bold" />
+        <!-- Scrollable Day Tabs -->
+        <!-- Scrollable Day Tabs -->
+        <!-- Day Tabs -->
+        <com.google.android.material.tabs.TabLayout
+            style="@style/background"
+            android:id="@+id/day_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="locale"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            app:tabMode="scrollable"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabIndicatorHeight="3dp"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/tab_unselected"
+            app:tabTextAppearance="@style/DayTabText">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_sunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sunday" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/monday" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tuesday" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wednesday" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/thursday" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/friday" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            app:cardCornerRadius="20dp"
+
+            app:cardElevation="4dp"
+            android:layout_gravity="center_horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="locale"
+                android:padding="24dp"
+                android:background="@color/backgroundAccent"
+                android:elevation="4dp">
+
+                <!-- Title aligned to the start (RTL or LTR aware) -->
+                <TextView
+                    android:id="@+id/average_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/average"
+                    android:textSize="50sp"
+                    android:textColor="@color/text"
+                    android:textStyle="bold"
+                    android:textAlignment="viewStart"
+                    android:gravity="start"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <!-- Grade aligned to the end (RTL or LTR aware) -->
+                <TextView
+                    android:id="@+id/average_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="110sp"
+                    android:textColor="@color/textAccent"
+                    android:textStyle="bold"
+                    android:textAlignment="viewEnd"
+                    android:gravity="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <!-- Scrollable Grades List -->
         <androidx.core.widget.NestedScrollView
@@ -39,30 +143,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="12dp"
                 style="@style/background">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/grades_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
-
-
-<!--    &lt;!&ndash; Bottom Navigation &ndash;&gt;-->
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottom_navigation"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom"-->
-<!--        app:labelVisibilityMode="unlabeled"-->
-<!--        app:itemIconSize="30dp"-->
-<!--        app:menu="@menu/bottom_nav_menu"-->
-<!--        app:backgroundTint="@color/backgroundAccent"/>-->
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

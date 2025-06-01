@@ -39,55 +39,46 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
 
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        if (!BaseActivity.this.getClass().equals(HomeActivity.class)) {
-                            startActivity(new Intent(BaseActivity.this, HomeActivity.class));
-                            finish();
-                        }
-                        break;
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    if (!BaseActivity.this.getClass().equals(HomeActivity.class)) {
+                        startActivity(new Intent(BaseActivity.this, HomeActivity.class));
+                        finish();
+                    }
+                    break;
 
-                    case R.id.nav_schedule:
-                        if (!BaseActivity.this.getClass().equals(ScheduleActivity.class)) {
-                            startActivity(new Intent(BaseActivity.this, ScheduleActivity.class));
-                            finish();
-                        }
-                        break;
-                    case R.id.nav_grades:
-                        if (!BaseActivity.this.getClass().equals(GradesActivity.class)) {
-//                            Toast.makeText(getApplicationContext(), "Opening Grades...", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(BaseActivity.this, GradesActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.nav_messages:
-                        if (!BaseActivity.this.getClass().equals(MessagesActivity.class)) {
-//                            Toast.makeText(getApplicationContext(), "Opening Grades...", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(BaseActivity.this, MessagesActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.nav_account:
-//                        if (!BaseActivity.this.getClass().equals(AccountActivity.class)) {
-//                            Intent intent = new Intent(BaseActivity.this, AccountActivity.class);
-//                            startActivity(intent);
-//                        }
-                        if (!(BaseActivity.this instanceof AccountActivity)
-                                && !(BaseActivity.this instanceof PlatformsActivity)) {
-                            Intent intent = new Intent(BaseActivity.this, AccountActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        break;
-                    default:
-                        return false;
-                }
-                return true;
+                case R.id.nav_schedule:
+                    if (!BaseActivity.this.getClass().equals(ScheduleActivity.class)) {
+                        startActivity(new Intent(BaseActivity.this, ScheduleActivity.class));
+                        finish();
+                    }
+                    break;
+                case R.id.nav_grades:
+                    if (!BaseActivity.this.getClass().equals(GradesActivity.class)) {
+                        Intent intent = new Intent(BaseActivity.this, GradesActivity.class);
+                        startActivity(intent);
+                    }
+                    break;
+                case R.id.nav_messages:
+                    if (!BaseActivity.this.getClass().equals(MessagesActivity.class)) {
+                        Intent intent = new Intent(BaseActivity.this, MessagesActivity.class);
+                        startActivity(intent);
+                    }
+                    break;
+                case R.id.nav_account:
+                    if (!(BaseActivity.this instanceof AccountActivity)
+                            && !(BaseActivity.this instanceof PlatformsActivity)) {
+                        Intent intent = new Intent(BaseActivity.this, AccountActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    break;
+                default:
+                    return false;
             }
+            return true;
         });
         // Highlight the current selected page based on Activity class
         if (this instanceof HomeActivity) {
@@ -103,24 +94,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         else if (this instanceof PlatformsActivity) {
             bottomNavigationView.setSelectedItemId(R.id.nav_account);
-//            bottomNavigationView.getMenu().setGroupCheckable(0, false, false);
         }
     }
 
-    // Setup the account menu by setting a click listener on the person icon
-//    private void setupAccountMenu() {
-//        ImageButton accountButton = findViewById(R.id.account_button);
-//        if (accountButton != null) {
-//            accountButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    showAccountPopup(v);
-//                }
-//            });
-//        }
-//    }
-
-    // Show the popup menu with icons using reflection hacks
     private void showAccountPopup(View anchor) {
         // Create PopupMenu normally (using ContextThemeWrapper didn't work in this case)
         PopupMenu popupMenu = new PopupMenu(this, anchor);

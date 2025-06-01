@@ -45,15 +45,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         holder.hourView.setText(String.valueOf(item.hourNum));
         holder.subjectView.setText(item.subject);
         holder.teacherView.setText(item.teacher);
-        System.out.println(item);
 
         if (item.changes != null && !item.changes.isEmpty()) {
             holder.changeView.setVisibility(View.VISIBLE);
             holder.changeView.setText(item.changes);
         }
         else if (item.examSubject != null){
-            System.out.println("exam 2");
-            System.out.println(item.examSubject);
             holder.changeView.setVisibility(View.VISIBLE);
             holder.changeView.setText(item.examSubject);
 
