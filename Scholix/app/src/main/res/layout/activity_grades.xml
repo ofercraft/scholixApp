@@ -28,56 +28,6 @@
             android:textColor="@color/text"
             android:textSize="24sp"
             android:textStyle="bold" />
-        <!-- Scrollable Day Tabs -->
-        <!-- Scrollable Day Tabs -->
-        <!-- Day Tabs -->
-        <com.google.android.material.tabs.TabLayout
-            style="@style/background"
-            android:id="@+id/day_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layoutDirection="locale"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            app:tabMode="scrollable"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@color/tab_unselected"
-            app:tabTextAppearance="@style/DayTabText">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_sunday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sunday" />
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_monday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/monday" />
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_tuesday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tuesday" />
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_wednesday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/wednesday" />
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_thursday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/thursday" />
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_friday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/friday" />
-        </com.google.android.material.tabs.TabLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
