@@ -4,72 +4,102 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Privacy Policy – Scholix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --accent: #3498db;
-      --background: #f8f9fa;
-      --text: #333;
-      --card: #fff;
-      --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      --primary: #1e88e5;
+      --background: #f4f6f8;
+      --text: #2e2e2e;
+      --card-bg: #ffffff;
+      --border: #e0e0e0;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: var(--background);
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
       color: var(--text);
       line-height: 1.6;
-      padding: 2em 1em;
-      display: flex;
-      justify-content: center;
+      padding: 0;
     }
-    .container {
-      max-width: 850px;
-      width: 100%;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      border-radius: 12px;
-      padding: 2em;
-    }
-    h1 {
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1.5em 1em;
       text-align: center;
-      color: var(--accent);
-      margin-bottom: 1em;
+      font-size: 1.8em;
+      font-weight: 600;
+      box-shadow: var(--shadow);
     }
+
+    .container {
+      max-width: 860px;
+      margin: 2em auto;
+      padding: 1.5em;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
     h2 {
       margin-top: 2em;
-      color: var(--accent);
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 0.25em;
+      font-size: 1.4em;
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+      padding-left: 0.5em;
     }
+
     p, li {
       margin-bottom: 1em;
     }
+
     ul {
       padding-left: 1.2em;
     }
+
     strong {
       font-weight: 600;
     }
+
     a {
-      color: var(--accent);
+      color: var(--primary);
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
     .meta {
-      text-align: center;
-      font-size: 0.95em;
+      background: #f1f3f6;
+      padding: 1em;
       margin-bottom: 2em;
-      color: #555;
+      border-radius: 8px;
+      font-size: 0.95em;
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 1em;
+        padding: 1.25em;
+      }
     }
   </style>
 </head>
 <body>
+
+  <header>Privacy Policy – Scholix</header>
+
   <div class="container">
-    <h1>Privacy Policy – Scholix</h1>
     <div class="meta">
-      <strong>Developer:</strong> Tal Feldman<br>
+      <strong>Developer:</strong> Tal Feldman<br />
       <strong>Last updated:</strong> June 29, 2025
     </div>
 
